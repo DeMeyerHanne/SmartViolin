@@ -12,10 +12,8 @@ const listenToUI = function() {
     const knoppen = document.querySelectorAll(".js-koffer-btn");
     for (const knop of knoppen) {
         knop.addEventListener("click", function() {
-            // const code = this.codeS;
-            // const waarde = this.gemetenWaarde;
             console.log("Koffer kan geopend worden")
-            socket.send("F2B_koffer_open");
+            socket.emit("F2B_koffer_open", {koffer: "open"});
         })
     };
 };
@@ -256,10 +254,6 @@ const listenToSocket = function() {
         handleData(`http://${lanIP}/api/v1/oefentijd`, callbackWaardeOefentijd);
         handleData(`http://${lanIP}/api/v1/luchtvochtigheid`, callbackWaardeLucht);
     });
-
-    socket.on("B2F_verandering_koffer", function() {
-        console.log("GELUKT");
-    })
 };
 //#endregion
 
@@ -280,6 +274,15 @@ const callbackWaardeLucht = function(dataLucht) {
 };
 //#endregion    
 
+const toggleNav =  function () {
+    console.log("ToggleNav")
+    let toggleTrigger = document.querySelectorAll(".js-toggle-nav");
+    for (let i = 0; i < toggleTrigger.length; i++) {
+        toggleTrigger(i).addEventListener("touchstart", function() {
+            document.querySelector("html").classList.toggle("has-mobile-nav");
+        })
+    }
+}
 
 // DOM
 document.addEventListener('DOMContentLoaded', function() {
@@ -289,4 +292,5 @@ document.addEventListener('DOMContentLoaded', function() {
     getOefData();
     getTempData();
     getLuchtData();
+    // toggleNav();
 });

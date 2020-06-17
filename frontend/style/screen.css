@@ -32,7 +32,7 @@
 */
 
 html {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.5;
     font-family: "Inter Web", Helvetica, arial, sans-serif;
     color: #14161A;
@@ -123,6 +123,7 @@ table,
 address,
 figure {
     margin: 0 0 24px;
+    font-size: 24px;
 }
 
 ul,
@@ -451,6 +452,10 @@ a:focus {
     -webkit-appearance: none;
 }
 
+.o-margin {
+    margin-left: 40px;
+}
+
 /*------------------------------------*\
   #COMPONENTS
 \*------------------------------------*/
@@ -719,25 +724,23 @@ a:focus {
     
     .c-link-cta:hover,
     .c-link-cta:focus {
-        background: #fff;
-        color: #8EA4AC;
+        background: #8EA4AC 25%;
+        color: #232323;
     }
     
     .c-link-cta:active {
-        background-color: #fff;
-        color: #8EA4AC;
+        background: #8EA4AC 25%;
+        color: #232323;
     }
     
     .c-link-cta--lg {
         font-size: 16px;
         padding: 16px 32px;
-        color: #8EA4AC;
     }
 
     .c-link-cta--xl {
         font-size: 18px;
         padding: 16px 32px;
-        color: #8EA4AC;
     }
 
 
@@ -753,11 +756,8 @@ a:focus {
     padding-bottom: 64px;
 }
 
-
-.c-p-tekst-rectangle {
-    display: inline-block;
-    height: 50px;
-    background-color: #8EA4AC;
+.c-extra-padding {
+    padding-bottom: 24px;
 }
 
 /* .c-canvas-responsive {

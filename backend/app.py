@@ -72,17 +72,19 @@ def read_alle_waarden(id):
 def sensor_data_temp():
     while True:
         humidity, temperature = Adafruit_DHT.read(sensor, DHT11_pin)
+        # if temperature is not None:
         projectDataRepository.insert_data_temp('temp', 2, temperature)
         print("gelukt temp")
-        time.sleep(60) # om de minuut een nieuwe meting in database
+        time.sleep(10) # om de 10 sec een nieuwe meting in database
         
 
 def sensor_data_lucht():
     while True:
         humidity, temperature = Adafruit_DHT.read(sensor, DHT11_pin)
+        # if humidity is not None:
         projectDataRepository.insert_data_lucht('lucht', 1, humidity)
         print("gelukt lucht")
-        time.sleep(60) # om de minuut een nieuwe meting in database
+        time.sleep(10) # om de 10 sec een nieuwe meting in database
 
         
 
@@ -93,22 +95,17 @@ def initial_connection():
     socketio.emit('connected', 1)
 
 @socketio.on('F2B_koffer_open')
-def koffer_magneet():
-    print("De koffer gaat open")
-    lees_knop(4)
-    socket.send('B2F_verandering_koffer')
-    
-
-def lees_knop(pin):
-    print("button pressed")
-    if GPIO.input(magnet) == 1:
+def koffer_magneet(data):
+    if GPIO.input(magnet) == GPIO.HIGH:
+        print("De koffer gaat open")
         GPIO.output(magnet, GPIO.LOW)
-        # res = projectDataRepository.update_status_koffer("oef", "0")
+        time.sleep(5)
+        GPIO.output(magnet, GPIO.HIGH)
+        print("De koffer is dicht")
     else:
         GPIO.output(magnet, GPIO.HIGH)
-        # res = projectDataRepository.update_status_koffer("oef", "1")
-    data = projectDataRepository.read_status_koffer("oef")
-    socket.send('B2F_verandering_koffer')
+        print("Koffer gaat niet open")
+    
         
 
 ########## LCD CODE (ip) ############ 
@@ -131,7 +128,7 @@ def setup():
 
 # ip adres opvragen
 ip = check_output(['hostname', '--all-ip-addresses']).split()
-print(ip[0].decode())
+print(ip[0].decode())   # ip voor internet
 
 
 def callback_stopwatch(pin):
@@ -144,6 +141,9 @@ def callback_stopwatch(pin):
             print("beginnen")
             begin = time.time()
             counter = 1 
+            write_message("Oefentijd start")
+            time.sleep(5)
+            send_instructions(0b00000001)
         else:
             print("stoppen")
             einde = time.time()
@@ -152,6 +152,13 @@ def callback_stopwatch(pin):
             print(res)
             counter = 0 
             projectDataRepository.insert_data_oef('oef', 3, 0, res)
+            write_message("Oefentijd stopt")
+            time.sleep(5)
+            send_instructions(0b00000001)
+            write_message(res)
+            time.sleep(5)
+            send_instructions(0b00000001)
+
             
 
 def resultaat_stopw():
@@ -166,10 +173,11 @@ def callback_magneet(pin):
     else:
         GPIO.output(magnet, GPIO.LOW)
         print("Koffer open")
-        time.sleep(10)
+        time.sleep(3)
         GPIO.output(magnet, GPIO.HIGH)
-
-
+        write_message("Welkom!")
+        time.sleep(5)
+        send_instructions(0b00000001)
             
 def lucht_temp():
     humidity, temperature = Adafruit_DHT.read(sensor, DHT11_pin)
@@ -242,9 +250,6 @@ def callback_knop_lcd(pin):
                 write_message("Temp: te hoog")
         if status == 4:
             send_instructions(0b00000001)
-            print("Oefentijd")
-            write_message("Oefentijd:")
-            time.sleep(3)
 ####################################
 setup()
 init_lcd()

@@ -19,20 +19,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
         <script src="script/app.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-        
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                toggleNav();
-            })
-            function toggleNav() {
-                let toggleTrigger = document.querySelectorAll(".js-toggle-nav");
-                for (let i = 0; i < toggleTrigger.length; i++) {
-                    toggleTrigger(i).addEventListener("touchstart", function() {
-                        document.querySelector("html").classList.toggle("has-mobile-nav");
-                    })
-                }
-            }
-        </script>
     </head>
 <body>
     <div class="c-page">
@@ -50,17 +36,16 @@
                         <nav class="c-nav">
                             <ul class="o-list c-nav__list">
                                 <li class="c-nav__item"><a href="#!" class="c-nav__link">Home</a></li>
-                                <li class="c-nav__item c-nav__item--cta"><a class="js-afsluit-btn c-link-cta" href="#!">Afsluiten</a></li>
                             </ul>
                         </nav>
                     </div>
-                    <!-- <div class="c-header__mobile-nav-trigger">
+                    <div class="c-header__mobile-nav-trigger">
                         <button class="o-button-reset c-nav-trigger js-toggle-nav">
                             <svg class="c-nav-trigger__svg" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
                             </svg>
                         </button> 
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </header>
@@ -69,29 +54,37 @@
                 <div class="c-intro o-layout o-layout--gutter o-layout--align-center">
                     <div class="c-intro__body o-layout__item u-1-of-2-bp3">
                         <div class="u-max-widht-sm"> 
-                            <h1>Temperatuur</h1>
-                            <p>In °C</p>
-                            <div class="js-luchtvochtigheid">
-                                <p class="c-p-tekst-rectangle c-lead c-lead--md u-color-neutral-base c-alignment">
-                                    temp
-                                </p>
+                            <div class="c-extra-padding">
+                                <h1>Temperatuur</h1>
+                                <div class="js-luchtvochtigheid">
+                                    <p class="c-lead c-lead--md u-color-neutral-base c-alignment">
+                                        temp
+                                    </p>
+                                </div>
+                                <div class="o-margin">
+                                    <p>°C</p>
+                                </div>
                             </div>
-                            <h1>Luchtvochtigheid</h1>
-                            <p>In %</p>
-                            <div class="js-waarde">
-                                <p class="c-lead c-lead--md u-color-neutral-base c-alignment">
-                                    lucht 
-                                </p>
+                            <div class="c-extra-padding">
+                                <h1>Luchtvochtigheid</h1>
+                                <div class="js-waarde">
+                                    <p class="c-lead c-lead--md u-color-neutral-base c-alignment">
+                                        lucht 
+                                    </p>
+                                </div>
+                                <div class="o-margin">
+                                    <p>%</p>
+                                </div>
                             </div>
-                            <h1>Oefentijd</h1>
-                            <p>In minuten</p>
-                            <div class="js-oefentijd">
-                                <p class="c-lead c-lead--md u-color-neutral-base c-alignment">
-                                    Oef 
-                                </p>
+                            <div class="c-extra-padding">
+                                <h1>Oefentijd</h1>
+                                <div class="js-oefentijd">
+                                    <p class="c-lead c-lead--md u-color-neutral-base c-alignment">
+                                        38 minuten 
+                                    </p>
+                                </div>
                             </div>
                             <li class="o-list c-nav__list c-nav__item c-nav__item--cta"><a class="js-koffer-btn c-link-cta" href="#!">Koffer openen</a></li>
-                            
                         </div>
                     </div>
                     <div class="c-intro__figure o-layout__item u-1-of-2-bp3">
@@ -108,7 +101,8 @@
                 </div>   
             </div>
         </section>
-        <section class="o-row o-row--xl o-row--neutral-xx-dark">
+    <div class="o-row--neutral-xx-dark">
+        <section class="o-row o-row--xl">
             <div class="o-container u-max-width-lg">
                 <article class="o-section o-section--xl">
                     <div class="o-layout o-layout--gutter-xl o-layout--justify-center o-layout--align-center o-layout--row-reverse">
@@ -121,7 +115,7 @@
                                 Temperatuur
                                 </h2>
                                 <p>
-                                    De grafiek van de laatste 7 metingen
+                                    Bekijk hier de grafiek van de laatste 7 metingen
                                 </p>
                             </div>
                         </div>
@@ -135,7 +129,7 @@
                         <div class="o-layout__item u-2-of-3-bp2 u-1-of-2-bp3">
                             <div class="u-max-width-sm">
                                 <h2>
-                                Luchtvochtigheid
+                                    Luchtvochtigheid
                                 </h2>
                                 <p>
                                     De grafiek van de laatste 7 metingen
@@ -163,6 +157,7 @@
                 </article>
             </div>
         </section>
+    </div>
     </div>
     <aside class="c-mobile-nav">
         <div class="c-mobile-nav__bg"></div>
